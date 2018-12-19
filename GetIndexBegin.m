@@ -5,6 +5,7 @@ function index_begin=GetIndexBegin(data,MyFunc,trial_number,a,b)
   % y = -0.07 in task coordinate is the threshold.
   % Center of the initial circle is at y=-0.05 in task coordinate. Radius is 0.02.
 
+
   % input:
   %   data = data obtained from load_tvins_data41()
   %   MyFunc = world2task()

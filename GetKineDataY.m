@@ -1,8 +1,9 @@
-function [kinedata1_y, kinedata2_y]=GetKineDataY(data,MyFunc,trial_number,a,b, index_start)
+function [kinedata1_y, kinedata2_y]=GetKineDataY(data,MyFunc,trial_number,a,b, index_start, h)
   % Generates kinetic and kinematic data for each subject at specific trials.
   % Only Y-direction data is outputted.
   % Output data begins from index_start. Set index_start=1 to output all recorded data.
   % Butterworth filter is applied as default. Make a=1,b=1 if filtering is not needed.
+
 
   % input:
   %   data = data obtained from load_tvins_data41()
@@ -10,6 +11,7 @@ function [kinedata1_y, kinedata2_y]=GetKineDataY(data,MyFunc,trial_number,a,b, i
   %   trial_number = trial
   %   a,b = Buttherwoth filter coefficient used for filtfilt
   %   index_start = starting index
+  %   h = step size
   %
   % output:
   %   kinedata1, kinedata2 = [position, velocity, force, force rate, feedback force] in task coordinate

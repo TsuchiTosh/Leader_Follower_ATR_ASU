@@ -11,6 +11,7 @@
 % 4. Run
 
 
+
 %% Setting up
 % please update this section first
 
@@ -70,11 +71,11 @@ for b=1:length(datasheet) %for every block
   data=load_tvins_data41(data_dir,datasheet{b,1}); %load data by block
   num_trial=length(data.trial(1).dynamics); %total number of trial in the block
 
-  block_summary=cell{num_trial,6};
+  block_summary=cell(num_trial,6);
   for n=1:num_trial %for every trial in block
 
     index_begin=GetIndexBegin(data, @world2task, n, a, b); %get starting index for the trial
-    [sub(1).y, sub(2).y]=GetKineDataY(data, @world2task, n, a, b, index_begin(3)); %load kinetic/kinematic data for trial
+    [sub(1).y, sub(2).y]=GetKineDataY(data, @world2task, n, a, b, index_begin(3),h); %load kinetic/kinematic data for trial
     % sub.y=[position, velocity, force, force rate, feedback force]
 
     % info from datasheet
