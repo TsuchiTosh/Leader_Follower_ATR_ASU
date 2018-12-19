@@ -11,7 +11,7 @@
 % 4. Run
 
 
-
+clear
 %% Setting up
 % please update this section first
 
@@ -80,7 +80,7 @@ for b=1:length(datasheet) %for every block
 
     % info from datasheet
     % {pair,	block_number,	stability,	stiffness,	stiffness_gain,	order}
-    block_summary{n,1:6}=datasheet{b,2:7};
+    [block_summary{n,1:6}]=deal(datasheet{b,2:7});
     col=7;
 
     % trial number
@@ -141,7 +141,7 @@ for b=1:length(datasheet) %for every block
 
     %%%%%%%%%%%%%% Both subjects %%%%%%%%%%%%%%%%%%%%%
     % marker for error trial=0, good trial=1
-    block_summary{n,col}=(data.trial(1).check_trial.movement_time(i)>0);
+    block_summary{n,col}=(data.trial(1).check_trial.movement_time(n)>0);
     col=col+1;
 
     %marker for performance, both movement time
@@ -149,7 +149,7 @@ for b=1:length(datasheet) %for every block
     col=col+1;
 
     % marker for performance, tilt
-    block_summary{n,col}=(data.trial(1).check_trial.traj_err(n)==1);
+    block_summary{n,col}=(data.trial(1).check_trial.traj_dist(n)==1);
     col=col+1;
 
     % mean hand distance
@@ -168,7 +168,7 @@ for b=1:length(datasheet) %for every block
     col=col+1;
 
     % max absolute angle
-    [block_summary{n,col},~]=nanax(abs(angle));
+    [block_summary{n,col},~]=nanmax(abs(angle));
     col=col+1;
     % max absolute angle rate
     [block_summary{n,col}, ~]=nanmax(abs(angr));
@@ -178,27 +178,27 @@ for b=1:length(datasheet) %for every block
     [block_summary{n,col},~]=nanmin(abs(angle));
     col=col+1;
     % minimum absolute angle rate
-    [block_summary{n,col}, ~]=nanmax(abs(angr));
+    [block_summary{n,col}, ~]=nanmin(abs(angr));
     col=col+1;
 
     % force correlation
     block_summary{n,col}=corr(sub(1).y(:,2),sub(2).y(:,2));
     col=col+1;
     % force rate correlation
-    block_summary{n,col}=corrcorr(sub(1).y(:,3),sub(2).y(:,3));
+    block_summary{n,col}=corr(sub(1).y(:,3),sub(2).y(:,3));
     col=col+1;
     % velocity correlation
-    block_summary{n,col}=corrcorr(sub(1).y(:,4),sub(2).y(:,4));
+    block_summary{n,col}=corr(sub(1).y(:,4),sub(2).y(:,4));
     col=col+1;
     % feedback force correlation
-    block_summary{n,col}=corrcorr(sub(1).y(:,5),sub(2).y(:,5));
+    block_summary{n,col}=corr(sub(1).y(:,5),sub(2).y(:,5));
     col=col+1;
   end
 
-  all_summary=vertcat(all_summary, block_summary)
+  all_summary=vertcat(all_summary, block_summary);
 end
 
 % convert cell to table
 all_summary=cell2table(all_summary, 'VariableNames',output_header);
 % write table as .csv file
-writetable(all_summary,output_name)
+writetable(all_summary,output_name);
